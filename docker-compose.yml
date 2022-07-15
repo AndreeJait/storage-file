@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongodb:latest
+    container_name: mongo
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - storage-networks
+  storage-app:
+    build: .
+    container_name: storage-app-container
+    networks:
+      - storage-networks
+    ports:
+      - 3006:3006
+    environment:
+      WAIT_HOSTS: mongo:27017
+    volumes:
+      - .:/app
+networks:
+  storage-networks:
+volumes:
+  mongodb-data:
