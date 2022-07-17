@@ -1,9 +1,9 @@
-version: '3.3'
+version: '3'
 
 services:
   mongodb:
-    image: mongodb:latest
-    container_name: mongo
+    image: mongo:latest
+    container_name: mongo_2
     volumes:
       - mongodb-data:/data/db
     networks:
@@ -16,7 +16,7 @@ services:
     ports:
       - 3006:3006
     environment:
-      WAIT_HOSTS: mongo:27017
+      WAIT_HOSTS: mongo_2:27017
     volumes:
       - .:/app
 networks:
