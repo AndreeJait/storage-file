@@ -9,8 +9,12 @@ import fileMiddleware from "./middleware/fileMiddleware.js";
 import router from "./routes/index.js";
 import { connectToDatabase } from "./utils/db.js";
 import { printLog } from "./utils/logger.js";
+import AccessKey from "./utils/accessKey.js";
+
+
 dotenv.config();
 const app = express();
+
 
 const ipaddress = ip.address();
 const PORT = process.env.PORT || 5001;
@@ -31,9 +35,14 @@ app.use(
   })
 );
 
-connectToDatabase(process.env.MONGO_URI);
+connectToDatabase(process.env.MONGO_URI).then(()=>{
+  printLog("Starting setup access");
+  AccessKey.init();
+  printLog("Setup access complete");
+});
 
-app.use("/public", fileMiddleware, express.static("public"));
+app.use("/storage/private", fileMiddleware, express.static("storage/private"));
+app.use("/storage/public", express.static("storage/public"));
 
 app.use("/auth", router.USER_ROUTE);
 app.use("/storage", router.STORAGE_ROUTE);
