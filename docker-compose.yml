@@ -16,10 +16,12 @@ services:
     ports:
       - 3006:3006
     environment:
-      WAIT_HOSTS: mongo_2:27017
+      WAIT_HOSTS: mongo:27017
     volumes:
       - .:/app
+      - /app/node_modules
 networks:
   storage-networks:
 volumes:
   mongodb-data:
+  app:

@@ -13,10 +13,11 @@ RUN update-ca-certificates
 RUN mkdir /app
 ADD . /app
 WORKDIR /app
+RUN npm install --verbose
+ENV NODE_PATH=/app/node_modules
+
 
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.6.0/wait /wait
 RUN chmod +x /wait
 
-RUN npm install
-
-CMD /wait && npm run dev
+CMD /wait && npm start
