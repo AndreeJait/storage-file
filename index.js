@@ -17,7 +17,7 @@ const app = express();
 
 
 const ipaddress = ip.address();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5002;
 
 app.use(cors());
 app.use(morgan("dev"));
