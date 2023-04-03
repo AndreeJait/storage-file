@@ -10,6 +10,6 @@ jobs:
     steps:
       - name: deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: mkdir test-from-server
+        run: cd '~/service/storage-file' && sudo docker compose up
         env:
           CI: true
