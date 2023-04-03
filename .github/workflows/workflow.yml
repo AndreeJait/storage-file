@@ -5,16 +5,11 @@ on:
     branches: [master]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: self-hosted
     steps:
       - name: deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: cd service/storage-file && git pull origin master && sudo docker compose up 
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: mkdir test-from-server
         env:
           CI: true
